@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send("index,helloword,autouodate");
+  res.send("index,helloword,autouodatetest2");
 });
 
 module.exports = router;
