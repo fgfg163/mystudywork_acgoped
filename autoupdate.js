@@ -1,5 +1,6 @@
-var http = require('http')
-var createHandler = require('github-webhook-handler')
+var http = require('http');
+var path = require('path');
+var createHandler = require('github-webhook-handler');
 var handler = createHandler({ path: '/update', secret: '6211asdfg' }) 
 // 上面的 secret 保持和 GitHub 后台设置的一致
  
