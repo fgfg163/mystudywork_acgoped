@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.send("index,helloword,ITWORKS!321415141515");
+  res.send("index,helloword,autouodate");
 });
 
 module.exports = router;
