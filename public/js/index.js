@@ -66,44 +66,143 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Content = function (_React$Component) {
-		_inherits(Content, _React$Component);
+	var dataModel = {
+	    year: 2016,
+	    month: 1,
+	    yearList: [2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001],
+	    monthList: [1, 4, 7, 10]
+	};
 
-		function Content() {
-			_classCallCheck(this, Content);
+	var Vidoeplayer = function (_React$Component) {
+	    _inherits(Vidoeplayer, _React$Component);
 
-			return _possibleConstructorReturn(this, Object.getPrototypeOf(Content).apply(this, arguments));
-		}
+	    function Vidoeplayer(props) {
+	        _classCallCheck(this, Vidoeplayer);
 
-		_createClass(Content, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'header',
-						{ className: 'site-header jumbotron' },
-						_react2.default.createElement(
-							_reactBootstrap.DropdownButton,
-							{ title: 'Dropdown', id: 'bg-nested-dropdown' },
-							_react2.default.createElement(
-								_reactBootstrap.MenuItem,
-								{ eventKey: '1' },
-								'Dropdown link'
-							),
-							_react2.default.createElement(
-								_reactBootstrap.MenuItem,
-								{ eventKey: '2' },
-								'Dropdown link'
-							)
-						)
-					)
-				);
-			}
-		}]);
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Vidoeplayer).call(this, props));
+	    }
 
-		return Content;
+	    _createClass(Vidoeplayer, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'video',
+	                { id: 'example_video1', className: 'video-js vjs-default-skin', controls: true, preload: 'none', width: '640',
+	                    height: '264',
+	                    poster: 'http://video-js.zencoder.com/oceans-clip.png',
+	                    'data-setup': '{}' },
+	                _react2.default.createElement('source', {
+	                    src: 'http://ws.acgvideo.com/2/88/6129632-1hd.mp4?wsTime=1465670443&wsSecret2=75cefb15b1ddccb679c90acc26b50fe9&oi=2067287383&appkey=4fa4601d1caa8b48&or=987503882',
+	                    type: 'video/mp4' }),
+	                _react2.default.createElement('track', { kind: 'captions', src: 'demo.captions.vtt', srclang: 'en', label: 'English' }),
+	                _react2.default.createElement('track', { kind: 'subtitles', src: 'demo.captions.vtt', srclang: 'en', label: 'English' })
+	            );
+	        }
+	    }]);
+
+	    return Vidoeplayer;
+	}(_react2.default.Component);
+
+	var Content = function (_React$Component2) {
+	    _inherits(Content, _React$Component2);
+
+	    function Content(props) {
+	        _classCallCheck(this, Content);
+
+	        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Content).call(this, props));
+
+	        _this2.state = {
+	            year: dataModel.yearList[0],
+	            month: 1
+	        };
+	        _this2._handleYearClick = _this2._handleYearClick.bind(_this2);
+	        _this2._handleMonthClick = _this2._handleMonthClick.bind(_this2);
+	        return _this2;
+	    }
+
+	    _createClass(Content, [{
+	        key: '_handleYearClick',
+	        value: function _handleYearClick(e, year) {
+	            this.setState({ year: year });
+	            dataModel.year = year;
+	            console.log(year);
+	        }
+	    }, {
+	        key: '_handleMonthClick',
+	        value: function _handleMonthClick(e, month) {
+	            this.setState({ month: month });
+	            dataModel.month = month;
+	            console.log(month);
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var yearList = dataModel.yearList;
+	            var self = this;
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'header',
+	                    { className: 'site-header jumbotron' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'nav-btn-group' },
+	                        _react2.default.createElement(
+	                            _reactBootstrap.DropdownButton,
+	                            { className: 'year-select-btn', title: this.state.year, id: 'bg-nested-dropdown' },
+	                            yearList.map(function (element) {
+	                                return _react2.default.createElement(
+	                                    _reactBootstrap.MenuItem,
+	                                    { eventKey: element, key: element,
+	                                        onClick: function onClick(e) {
+	                                            self._handleYearClick(e, element);
+	                                        } },
+	                                    element
+	                                );
+	                            })
+	                        ),
+	                        _react2.default.createElement(
+	                            _reactBootstrap.ButtonGroup,
+	                            null,
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { className: 'month-select-btn', onClick: function onClick(e) {
+	                                        self._handleMonthClick(e, 1);
+	                                    } },
+	                                '一月'
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { className: 'month-select-btn', onClick: function onClick(e) {
+	                                        self._handleMonthClick(e, 4);
+	                                    } },
+	                                '四月'
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { className: 'month-select-btn', onClick: function onClick(e) {
+	                                        self._handleMonthClick(e, 7);
+	                                    } },
+	                                '七月'
+	                            ),
+	                            _react2.default.createElement(
+	                                _reactBootstrap.Button,
+	                                { className: 'month-select-btn', onClick: function onClick(e) {
+	                                        self._handleMonthClick(e, 10);
+	                                    } },
+	                                '十月'
+	                            )
+	                        )
+	                    )
+	                ),
+	                _react2.default.createElement(Vidoeplayer, null)
+	            );
+	        }
+	    }]);
+
+	    return Content;
 	}(_react2.default.Component);
 
 	;
@@ -219,6 +318,11 @@
 	// shim for using process in browser
 
 	var process = module.exports = {};
+
+	// cached from whatever global is present so that test runners that stub it don't break things.
+	var cachedSetTimeout = setTimeout;
+	var cachedClearTimeout = clearTimeout;
+
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -243,7 +347,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = setTimeout(cleanUpNextTick);
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -260,7 +364,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    clearTimeout(timeout);
+	    cachedClearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -272,7 +376,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        setTimeout(drainQueue, 0);
+	        cachedSetTimeout(drainQueue, 0);
 	    }
 	};
 
